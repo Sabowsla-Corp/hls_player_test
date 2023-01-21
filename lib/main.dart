@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -68,7 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    controller.initialize();
+    controller.initialize().then((value) {
+      setState(() {
+        log("Initialized");
+      });
+    });
   }
 
   @override
@@ -109,7 +115,13 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             controller.value.isInitialized
-                ? VideoPlayer(controller)
+                ? SizedBox(
+                    width: double.infinity,
+                    height: 300,
+                    child: VideoPlayer(
+                      controller,
+                    ),
+                  )
                 : const Center(
                     child: SizedBox(
                       width: 50,
